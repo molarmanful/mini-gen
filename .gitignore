@@ -79,3 +79,8 @@ Desktop.ini
 
 # Android
 .csettings
+
+.clangd
+obj
+compile_commands.json
+bin
