@@ -25,10 +25,24 @@ void drawGraded(ofColor color, int centerY, bool isSun, float rot){
 	ofPopStyle();
 }
 
+void drawMt(ofColor a, ofColor b, float r, int offset, int w, int h, float rot){
+	ofPushMatrix();
+		ofTranslate(0, 256);
+		ofRotateDeg(r);
+
+		ofPushStyle();
+			ofSetColor(getColor(a, b, rot));
+			ofDrawTriangle(-w / 2, -512 + offset, w / 2, -512 + offset, 0, -512 + offset - h);
+		ofPopStyle();
+
+	ofPopMatrix();
+}
+
 void Cycle::setup(){
 	// add params
 	params.setName("PARAMS");
 	params.add(rotation.set("day/night cycle", 360, 0, 360));
+	params.add(bend.set("river bend", -1, -1, 1));
 	params.add(resetStars.set("reset stars"));
 
 	// generate stars + bind button
@@ -42,6 +56,10 @@ void Cycle::setup(){
 	moon.r = 179; moon.g = 236; moon.b = 245;
 	land.r = 0; land.g = 145; land.b = 110;
 	land_n.r = 52; land_n.g = 46; land_n.b = 55;
+	water.r = 0; water.g = 126; water.b = 167;
+	water_n.r = 0; water_n.g = 50; water_n.b = 73;
+	mountain.r = 126; mountain.g = 107; mountain.b = 143;
+	mountain_n.r = 33; mountain_n.g = 1; mountain_n.b = 36;
 }
 
 void Cycle::draw(){
@@ -67,10 +85,36 @@ void Cycle::draw(){
 
 		ofPopMatrix();
 
+		// mountains
+		drawMt(mountain_n, mountain, 5, 30, 256, 200, rotation);
+		drawMt(mountain_n, mountain, -7, 10, 128, 100, rotation);
+
 		// land
 		ofPushStyle();
-			ofSetColor(getColor(land_n, land, rotation));
+			ofSetColor(getColor(mountain_n, land, rotation));
 			ofDrawCircle(0, 256, 512);
+		ofPopStyle();
+
+		float X = 32 * bend;
+		float X1 = X - 16;
+		float X2 = -X - 32;
+		float X01 = X + 16;
+		float X02 = -X + 32;
+
+		// river
+		ofPushStyle();
+			ofSetColor(getColor(water_n, water, rotation));
+			ofBeginShape();
+
+				ofVertex(0, -253);
+				ofBezierVertex(X1, -192, X1, -192, -24, -128);
+				ofBezierVertex(X2, -64, X2, -64, -64, 0);
+
+				ofVertex(64, 0);
+				ofBezierVertex(X02, -64, X02, -64, 24, -128);
+				ofBezierVertex(X01, -192, X01, -192, -0, -253);
+
+			ofEndShape();
 		ofPopStyle();
 
 		// sun
