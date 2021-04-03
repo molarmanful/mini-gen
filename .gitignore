@@ -84,3 +84,4 @@ Desktop.ini
 obj
 compile_commands.json
 bin
+config.make
