@@ -17,8 +17,8 @@ An aesthetic choice to note is the usage of semitransparent circles to represent
 
 ```
 make && make run
-
 ```
+
 # Options
 
 * **Day/Night Cycle**: Changes position of sun/moon in the sky. Also affects lighting and coloring of objects in the scene.
