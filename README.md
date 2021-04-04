@@ -1,9 +1,9 @@
 # Minimalist Landscapes
 
-![](0.png)
-![](1.png)
-![](2.png)
-![](3.png)
+![](media/0.png)
+![](media/1.png)
+![](media/2.png)
+![](media/3.png)
 
 A series of generated landscapes using a flat minimalist style.
 
